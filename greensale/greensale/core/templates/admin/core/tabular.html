@@ -35,6 +35,8 @@
 
                    var result = a * b;
 
+                   result = Math.round(result * 100) / 100
+
                    $('input[name="saleitem_set-{{ forloop.counter0 }}-total"]').val(result);
                }
 
