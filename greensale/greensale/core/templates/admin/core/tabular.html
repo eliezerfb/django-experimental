@@ -24,84 +24,29 @@
 
      <tbody>
 
-       <!-- <script type="text/javascript">
-           // Event setup using a convenience method
-         var id;
-         $(document).ready(function() {
-           $( ".select2-results__option select2-results__option--highlighted" ).click(function() {
-               // id = $('input[name="saleitem_set-{{ forloop.counter0 }}-item"]').val();
-               console.log( "select2" );
-               // console.log()
-           });
-        });
-      </script> -->
-
 
      {% for inline_admin_form in inline_admin_formset %}
-         <p><strong>kkkkkkkkk {{ forloop.counter0 }}</strong></p>
          <script type="text/javascript">
-             // Event setup using a convenience method
-             // $(document).ready(function() {
-             //       var valorUnitario;
-             //       var id;
-             //       alert("Hello! I am an alert box!!");
-             //       $("#id_saleitem_set-0-product").blur(function() {
-             //           currentData = $(this).val();
-             //           alert('PTQP');
-             //       });
+             $(document).ready(function(){
 
+               function calc_total() {
+                   var a = parseFloat($("input[name=saleitem_set-{{ forloop.counter0 }}-quantity]").val());
+                   var b = parseFloat($("input[name=saleitem_set-{{ forloop.counter0 }}-unit_price]").val());
 
-                   // $("selection").blur(function(){
-                   //     alert("This input field has lost its focus.");
-                   // });
-                   // $("#saleitem_set-0-product").blur(function() {
-                   //     id = $('input[name="saleitem_set-{{ forloop.counter0 }}-item"]').val();
-                   //     $.ajax({
-                   //         type: "GET",
-                   //         url: "/get_price/" + id,
-                   //         dataType: "json",
-                   //
-                   //         success: function(retorno) {
-                   //           $.each(retorno, function(i, item) {
-                   //              var a = number_format(item.fields['valorVenda'], 2, ',', '.');
-                   //              valorUnitario = item.fields['valorVenda']; {
-                   //                   $('input[name="itempedido_set-{{ forloop.counter0}}-valorUnitario"]').val(a);
-                   //              }
-                   //           })
-                   //         }
-                   //
-                   //     }).keyup();
-                   //   //    id = $("#id_saleitem_set-{{ forloop.counter0 }}-product").val();
-                   // });
-             // });
+                   var result = a * b;
 
-             //Quantidade
-             console.log( 'teste0' );
-             $('input[name=saleitem_set-0-quantity]').keyup(function () {
-                 console.log( 'teste1' );
-                 var a = parseFloat($("input[name=saleitem_set-0-quantity]").val());
-                 var b = parseFloat($("input[name=saleitem_set-0-unit_price]").val());
-                 //
-                 var result = a * b;
-                 console.log( $("input[name=saleitem_set-0-unit_price]").val() );
+                   $('input[name="saleitem_set-{{ forloop.counter0 }}-total"]').val(result);
+               }
 
-                 $('input[name="saleitem_set-0-total"]').val(result);
+               $('input[name=saleitem_set-{{ forloop.counter0 }}-quantity]').keyup(function () {
+                   calc_total()
+               }).keyup();
 
-                 console.log( result );
-             }).keyup();
+               $('input[name=saleitem_set-{{ forloop.counter0 }}-unit_price]').keyup(function () {
+                   calc_total()
+               }).keyup();
 
-             $('input[name=saleitem_set-0-unit_price]').keyup(function () {
-                 console.log( 'teste1' );
-                 var a = parseFloat($("input[name=saleitem_set-0-quantity]").val());
-                 var b = parseFloat($("input[name=saleitem_set-0-unit_price]").val());
-                 //
-                 var result = a * b;
-                 console.log( $("input[name=saleitem_set-0-unit_price]").val() );
-
-                 $('input[name="saleitem_set-0-total"]').val(result);
-
-                 console.log( result );
-             }).keyup();
+            });
 
          </script>
 
