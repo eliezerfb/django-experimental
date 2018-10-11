@@ -15,7 +15,7 @@ class Sale(models.Model):
     number = models.IntegerField('número')
 
     def __str__(self):
-        return self.number
+        return 'Pedido {}'.format(self.number)
 
 
 class SaleItem(models.Model):
