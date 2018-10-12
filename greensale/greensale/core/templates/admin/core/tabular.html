@@ -27,30 +27,28 @@
 
      {% for inline_admin_form in inline_admin_formset %}
          <script type="text/javascript">
-             $(document).ready(function(){
-
-               function calc_total() {
-                   var a = parseFloat($("input[name=saleitem_set-{{ forloop.counter0 }}-quantity]").val());
-                   var b = parseFloat($("input[name=saleitem_set-{{ forloop.counter0 }}-unit_price]").val());
-
-                   var result = a * b;
-
-                   result = Math.round(result * 100) / 100
-
-                   $('input[name="saleitem_set-{{ forloop.counter0 }}-total"]').val(result);
-               }
-
-               $('input[name=saleitem_set-{{ forloop.counter0 }}-quantity]').keyup(function () {
-                   calc_total()
-               }).keyup();
-
-               $('input[name=saleitem_set-{{ forloop.counter0 }}-unit_price]').keyup(function () {
-                   calc_total()
-               }).keyup();
-
-            });
-
-         </script>
+             $(document).on('input', '#id_saleitem_set-{{ forloop.counter0 }}-quantity', function(){
+               var a = parseFloat($("input[name=saleitem_set-{{ forloop.counter0 }}-quantity]").val());
+               var b = parseFloat($("input[name=saleitem_set-{{ forloop.counter0 }}-unit_price]").val());
+               var result = a * b;
+               result = result.toFixed(2)
+               $('input[name="saleitem_set-{{ forloop.counter0 }}-total"]').val(result);
+             });
+             $(document).on('input', '#id_saleitem_set-{{ forloop.counter0 }}-unit_price', function(){
+               var a = parseFloat($("input[name=saleitem_set-{{ forloop.counter0 }}-quantity]").val());
+               var b = parseFloat($("input[name=saleitem_set-{{ forloop.counter0 }}-unit_price]").val());
+               var result = a * b;
+               result = result.toFixed(2)
+               $('input[name="saleitem_set-{{ forloop.counter0 }}-total"]').val(result);
+             });
+             $(document).on('input', '#id_saleitem_set-{{ forloop.counter0 }}-total', function(){
+               var a = parseFloat($("input[name=saleitem_set-{{ forloop.counter0 }}-quantity]").val());
+               var b = parseFloat($("input[name=saleitem_set-{{ forloop.counter0 }}-total]").val());
+               var result = b / a;
+               result = result.toFixed(4)
+               $('input[name="saleitem_set-{{ forloop.counter0 }}-unit_price"]').val(result);
+             });
+          </script>
 
         {% if inline_admin_form.form.non_field_errors %}
         <tr><td colspan="{{ inline_admin_form|cell_count }}">{{ inline_admin_form.form.non_field_errors }}</td></tr>
